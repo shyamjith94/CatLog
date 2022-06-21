@@ -32,6 +32,19 @@ namespace CatLog.Controllers{
             }
             return Ok(item.AsDto());
         }
+        // Post /items
+        [HttpPost]
+        public ActionResult<ItemDto> CreateItem(CreateItemDto itemDto){
+            Item item = new()
+            {
+                Id = Guid.NewGuid(),
+                Name = itemDto.Name,
+                price = itemDto.price,
+                CreateDate = DateTimeOffset.UtcNow
+            };
+            repository.CreateItem(item);
+            return CreatedAtAction(nameof(GetItem), new { id = item.Id }, item.AsDto());
+        }
     }
 
 }
