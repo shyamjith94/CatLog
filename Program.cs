@@ -1,4 +1,9 @@
 using CatLog.Repositories;
+using CatLog.Settings;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +14,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IInMemItemRepository, InMemItemRepository>();
+
+// mongo db
+BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
+
+builder.Services.AddSingleton<IMongoClient>(ServiceProvider =>
+{
+var settings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
+return new MongoClient(settings.ConnectionString);
+});
+builder.Services.AddSingleton<IItemRepository, MongoDbItemRepository>();
 
 
 

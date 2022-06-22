@@ -2,7 +2,7 @@ using CatLog.Entities;
 
 namespace CatLog.Repositories
 {
-    public interface IInMemItemRepository
+    public interface IItemRepository
     {
         Item GetItem(Guid id);
         IEnumerable<Item> GetItems();

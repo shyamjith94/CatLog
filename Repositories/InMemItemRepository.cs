@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CatLog.Repositories;
 
-public class InMemItemRepository : IInMemItemRepository
+public class InMemItemRepository : IItemRepository
 {
     private readonly List<Item> items = new()
     {

@@ -11,8 +11,8 @@ namespace CatLog.Controllers{
     [Route("items")]
     public class ItemController : ControllerBase
     {
-        private readonly IInMemItemRepository repository;
-        public ItemController(IInMemItemRepository repository){
+        private readonly IItemRepository repository;
+        public ItemController(IItemRepository repository){
             this.repository = repository;
         }
 
