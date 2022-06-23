@@ -1,0 +1,10 @@
+services:
+  mongo:
+    container_name: mongo
+    restart: always
+    build:
+      context: .
+    volumes: 
+      - ./mongodbdata:/data/db
+    ports:
+      - "27017:27017"
